@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FA418435161D734A00249CAD /* infoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA418434161D734A00249CAD /* infoView.xib */; };
+		FA418439161D748200249CAD /* infoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA418438161D748200249CAD /* infoViewController.m */; };
 		FAEDB6F5161CCE1E00939ACC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAEDB6F4161CCE1E00939ACC /* UIKit.framework */; };
 		FAEDB6F7161CCE1E00939ACC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAEDB6F6161CCE1E00939ACC /* Foundation.framework */; };
 		FAEDB6F9161CCE1E00939ACC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAEDB6F8161CCE1E00939ACC /* CoreGraphics.framework */; };
@@ -21,6 +23,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FA418434161D734A00249CAD /* infoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = infoView.xib; sourceTree = "<group>"; };
+		FA418437161D748200249CAD /* infoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = infoViewController.h; sourceTree = "<group>"; };
+		FA418438161D748200249CAD /* infoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = infoViewController.m; sourceTree = "<group>"; };
 		FAEDB6F0161CCE1E00939ACC /* Project2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Project2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAEDB6F4161CCE1E00939ACC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		FAEDB6F6161CCE1E00939ACC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -89,6 +94,9 @@
 				FAEDB70D161CCE1E00939ACC /* ViewController.m */,
 				FAEDB70F161CCE1E00939ACC /* ViewController.xib */,
 				FAEDB6FB161CCE1E00939ACC /* Supporting Files */,
+				FA418434161D734A00249CAD /* infoView.xib */,
+				FA418437161D748200249CAD /* infoViewController.h */,
+				FA418438161D748200249CAD /* infoViewController.m */,
 			);
 			path = Project2;
 			sourceTree = "<group>";
@@ -163,6 +171,7 @@
 				FAEDB709161CCE1E00939ACC /* Default@2x.png in Resources */,
 				FAEDB70B161CCE1E00939ACC /* Default-568h@2x.png in Resources */,
 				FAEDB711161CCE1E00939ACC /* ViewController.xib in Resources */,
+				FA418435161D734A00249CAD /* infoView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -176,6 +185,7 @@
 				FAEDB701161CCE1E00939ACC /* main.m in Sources */,
 				FAEDB705161CCE1E00939ACC /* AppDelegate.m in Sources */,
 				FAEDB70E161CCE1E00939ACC /* ViewController.m in Sources */,
+				FA418439161D748200249CAD /* infoViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -257,6 +267,7 @@
 				GCC_PREFIX_HEADER = "Project2/Project2-Prefix.pch";
 				INFOPLIST_FILE = "Project2/Project2-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -268,6 +279,7 @@
 				GCC_PREFIX_HEADER = "Project2/Project2-Prefix.pch";
 				INFOPLIST_FILE = "Project2/Project2-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -291,6 +303,7 @@
 				FAEDB716161CCE1E00939ACC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -8,6 +8,31 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController 
+{
+
+}
+
+typedef enum
+{
+    ADD = 10,
+    SUBTRACT,
+    MULTIPLY,
+    DIVIDE,
+    EQUAL,
+    CLEAR,
+    SWITCH,
+    BGSEGMENT,
+    INFOBUTTON
+}buttonTypes;
+
+@property IBOutlet UILabel *calcDisplay;
+@property IBOutlet UILabel *operatorDisplay;
+@property NSString *numberOne;
+@property NSString *numberTwo;
+
+-(IBAction)userControlsHandler:(id)sender;
+
+-(void)getResults:(NSString*)first with:(NSString*)second;
 
 @end
