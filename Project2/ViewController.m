@@ -14,7 +14,7 @@
 @end
 
 @implementation ViewController
-@synthesize calcDisplay, operatorDisplay, onOffSwitch, backgroundColor, numberOne, numberTwo, typingSwap, results;
+@synthesize numberOne, numberTwo, typingSwap, results;
 
 - (void)viewDidLoad
 {
@@ -33,11 +33,13 @@
 {
     UIButton *button = (UIButton*)sender;
     
+//Checks to see if the switch is on or off. If on, allow use of calculator. If off, display an alert saying that it is off.
     if (onOffSwitch.on == FALSE){
         UIAlertView *switchedOff = [[UIAlertView alloc]initWithTitle:@"" message:@"Calculator switched off!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
         [switchedOff show];
     } else if (onOffSwitch.on == TRUE){
         
+//Used a single switch statement for all of the controls. What is done is dependant on the tag of the control.
         switch (button.tag) {
             case 0:
             case 1:
@@ -50,6 +52,8 @@
             case 8:
             case 9:
             {
+                
+//Checks if you just hit an operator or a number. If it is a number, you append the number to what is already there. If it is an operator, then the display is cleared and numbers start over.
                 if (typingSwap == NO) {
                     calcDisplay.text = @"";
                 }
@@ -59,6 +63,7 @@
             }
                 break;
             
+//This sets the the operator display depending on what operator was hit, and then controls what happens. If it is the first number, it simply saves that number. If it is the second number, it performs the operation hit.
             case ADD:
             case SUBTRACT:
             case MULTIPLY:
@@ -94,6 +99,7 @@
             }
                 break;
             
+//Here I wanted the feature to keep doing whatever operation you had previously hit. So, if you hit 5 + 5, it will calculate it and add 5 each time you hit the = button. Results in this example would be 10, 15, 20, 25, and so on.    
             case EQUAL:
             {
                 if (calcDisplay.text != @"") {
@@ -110,6 +116,8 @@
                 }
             }
                 break;
+                
+//Simple clear feature.
             case CLEAR:
             {
                 numberOne = nil;
@@ -118,24 +126,29 @@
                 operatorDisplay.text = @"";
             }
                 break;
+                
+//Simple if check to see which color is selected, then switches the color.
             case BGSEGMENT:
             {
-                
-                if (backgroundColor.selectedSegmentIndex == 0){
+                if (backgroundColor.selectedSegmentIndex == WHITE){
                     [self.view setBackgroundColor:[UIColor whiteColor]];
-                } else if (backgroundColor.selectedSegmentIndex == 1){
+                } else if (backgroundColor.selectedSegmentIndex == BLUE){
                     [self.view setBackgroundColor:[UIColor blueColor]];
-                } else if (backgroundColor.selectedSegmentIndex == 2){
+                } else if (backgroundColor.selectedSegmentIndex == GREEN){
                     [self.view setBackgroundColor:[UIColor greenColor]];
                 }
             }
                 break;
+                
+//Presents the second view with the info on it.
             case INFOBUTTON:
             {
                 infoViewController *infoView = [[infoViewController alloc]initWithNibName:@"infoView" bundle:nil];
                 [self presentViewController:infoView animated:TRUE completion:nil];
             }
                 break;
+            
+            
             default:
             {
                 
@@ -145,6 +158,7 @@
     }
 }
 
+//This gets the results by taking the two NSStrings, turning them into ints, and then the switch determines which operation to do. Next, it does the operation, turns the int into a string, and displays it on the calcDisplay.
 -(void)getResults:(NSString*)first with:(NSString*)second
 {
     int castNumberOne = [first intValue];

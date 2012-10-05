@@ -10,7 +10,10 @@
 
 @interface ViewController : UIViewController 
 {
-
+    IBOutlet UILabel *calcDisplay;
+    IBOutlet UILabel *operatorDisplay;
+    IBOutlet UISegmentedControl *backgroundColor;
+    IBOutlet UISwitch *onOffSwitch;
 }
 
 typedef enum
@@ -33,10 +36,7 @@ typedef enum
     GREEN
 }colors;
 
-@property IBOutlet UILabel *calcDisplay;
-@property IBOutlet UILabel *operatorDisplay;
-@property IBOutlet UISegmentedControl *backgroundColor;
-@property IBOutlet UISwitch *onOffSwitch;
+
 @property NSString *numberOne;
 @property NSString *numberTwo;
 @property BOOL typingSwap;
