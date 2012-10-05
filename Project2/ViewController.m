@@ -14,7 +14,7 @@
 @end
 
 @implementation ViewController
-@synthesize calcDisplay, operatorDisplay, numberOne, numberTwo, typingSwap, results;
+@synthesize calcDisplay, operatorDisplay, onOffSwitch, backgroundColor, numberOne, numberTwo, typingSwap, results;
 
 - (void)viewDidLoad
 {
@@ -32,107 +32,116 @@
 -(IBAction)userControlsHandler:(id)sender
 {
     UIButton *button = (UIButton*)sender;
-    switch (button.tag) {
-        case 0:
-        case 1:
-        case 2:
-        case 3:
-        case 4:
-        case 5:
-        case 6:
-        case 7:
-        case 8:
-        case 9:
-        {
-            if (typingSwap == NO) {
+    
+    if (onOffSwitch.on == FALSE){
+        UIAlertView *switchedOff = [[UIAlertView alloc]initWithTitle:@"" message:@"Calculator switched off!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [switchedOff show];
+    } else if (onOffSwitch.on == TRUE){
+        
+        switch (button.tag) {
+            case 0:
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+            case 6:
+            case 7:
+            case 8:
+            case 9:
+            {
+                if (typingSwap == NO) {
+                    calcDisplay.text = @"";
+                }
+                typingSwap = YES;
+                NSString *castInt = [NSString stringWithFormat:@"%d", button.tag];
+                calcDisplay.text = [calcDisplay.text stringByAppendingString:castInt];
+            }
+                break;
+            
+            case ADD:
+            case SUBTRACT:
+            case MULTIPLY:
+            case DIVIDE:
+            {
+                if (calcDisplay.text != @"") {
+                    
+                    typingSwap = NO;
+                    if (button.tag == ADD){
+                        operatorDisplay.text = @"+";
+                        operatorDisplay.tag = ADD;
+                    } else if (button.tag == SUBTRACT){
+                        operatorDisplay.text = @"-";
+                        operatorDisplay.tag = SUBTRACT;
+                    } else if (button.tag == MULTIPLY){
+                        operatorDisplay.text = @"*";
+                        operatorDisplay.tag = MULTIPLY;
+                    } else if (button.tag == DIVIDE){
+                        operatorDisplay.text = @"/";
+                        operatorDisplay.tag = DIVIDE;
+                    }
+                    
+                    if (numberOne == nil){
+                        numberOne = calcDisplay.text;
+                    } else if (numberTwo == nil){
+                        numberTwo = calcDisplay.text;
+                        [self getResults:numberOne with:numberTwo];
+                        numberTwo = nil;
+                    } else if (numberTwo != nil){
+                        numberTwo = nil;
+                    }
+                }
+            }
+                break;
+            
+            case EQUAL:
+            {
+                if (calcDisplay.text != @"") {
+                    typingSwap = NO;
+                    
+                    if (numberOne == nil){
+                        numberOne = calcDisplay.text;
+                    } else if (numberTwo == nil){
+                        numberTwo = calcDisplay.text;
+                        [self getResults:numberOne with:numberTwo];
+                    } else if (numberTwo != nil){
+                        [self getResults:numberOne with:numberTwo];
+                    }
+                }
+            }
+                break;
+            case CLEAR:
+            {
+                numberOne = nil;
+                numberTwo = nil;
                 calcDisplay.text = @"";
+                operatorDisplay.text = @"";
             }
-            typingSwap = YES;
-            NSString *castInt = [NSString stringWithFormat:@"%d", button.tag];
-            calcDisplay.text = [calcDisplay.text stringByAppendingString:castInt];
-        }
-            break;
-        
-        case ADD:
-        case SUBTRACT:
-        case MULTIPLY:
-        case DIVIDE:
-        {
-            if (calcDisplay.text != @"") {
+                break;
+            case BGSEGMENT:
+            {
                 
-                typingSwap = NO;
-                if (button.tag == ADD){
-                    operatorDisplay.text = @"+";
-                    operatorDisplay.tag = ADD;
-                } else if (button.tag == SUBTRACT){
-                    operatorDisplay.text = @"-";
-                    operatorDisplay.tag = SUBTRACT;
-                } else if (button.tag == MULTIPLY){
-                    operatorDisplay.text = @"*";
-                    operatorDisplay.tag = MULTIPLY;
-                } else if (button.tag == DIVIDE){
-                    operatorDisplay.text = @"/";
-                    operatorDisplay.tag = DIVIDE;
-                }
-                
-                if (numberOne == nil){
-                    numberOne = calcDisplay.text;
-                } else if (numberTwo == nil){
-                    numberTwo = calcDisplay.text;
-                    [self getResults:numberOne with:numberTwo];
-                    numberTwo = nil;
-                } else if (numberTwo != nil){
-                    numberTwo = nil;
+                if (backgroundColor.selectedSegmentIndex == 0){
+                    [self.view setBackgroundColor:[UIColor whiteColor]];
+                } else if (backgroundColor.selectedSegmentIndex == 1){
+                    [self.view setBackgroundColor:[UIColor blueColor]];
+                } else if (backgroundColor.selectedSegmentIndex == 2){
+                    [self.view setBackgroundColor:[UIColor greenColor]];
                 }
             }
-        }
-            break;
-        
-        case EQUAL:
-        {
-            if (calcDisplay.text != @"") {
-                typingSwap = NO;
-                
-                if (numberOne == nil){
-                    numberOne = calcDisplay.text;
-                } else if (numberTwo == nil){
-                    numberTwo = calcDisplay.text;
-                    [self getResults:numberOne with:numberTwo];
-                } else if (numberTwo != nil){
-                    [self getResults:numberOne with:numberTwo];
-                }
+                break;
+            case INFOBUTTON:
+            {
+                infoViewController *infoView = [[infoViewController alloc]initWithNibName:@"infoView" bundle:nil];
+                [self presentViewController:infoView animated:TRUE completion:nil];
             }
+                break;
+            default:
+            {
+                
+            }
+                break;
         }
-            break;
-        case CLEAR:
-        {
-            numberOne = nil;
-            numberTwo = nil;
-            calcDisplay.text = @"";
-            operatorDisplay.text = @"";
-        }
-            break;
-        case SWITCH:
-        {
-            
-        }
-            break;
-        case BGSEGMENT:
-        {
-            
-        }
-            break;
-        case INFOBUTTON:
-        {
-            infoViewController *infoView = [[infoViewController alloc]initWithNibName:@"infoView" bundle:nil];
-            [self presentViewController:infoView animated:TRUE completion:nil];
-        }
-            break;
-        default:
-        {
-            
-        }
-            break;
     }
 }
 

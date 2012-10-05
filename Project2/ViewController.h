@@ -26,8 +26,17 @@ typedef enum
     INFOBUTTON
 }buttonTypes;
 
+typedef enum
+{
+    WHITE,
+    BLUE,
+    GREEN
+}colors;
+
 @property IBOutlet UILabel *calcDisplay;
 @property IBOutlet UILabel *operatorDisplay;
+@property IBOutlet UISegmentedControl *backgroundColor;
+@property IBOutlet UISwitch *onOffSwitch;
 @property NSString *numberOne;
 @property NSString *numberTwo;
 @property BOOL typingSwap;
