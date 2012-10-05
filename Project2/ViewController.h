@@ -30,6 +30,8 @@ typedef enum
 @property IBOutlet UILabel *operatorDisplay;
 @property NSString *numberOne;
 @property NSString *numberTwo;
+@property BOOL typingSwap;
+@property int results;
 
 -(IBAction)userControlsHandler:(id)sender;
 

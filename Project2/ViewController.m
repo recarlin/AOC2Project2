@@ -14,10 +14,11 @@
 @end
 
 @implementation ViewController
-@synthesize calcDisplay, operatorDisplay, numberOne, numberTwo;
+@synthesize calcDisplay, operatorDisplay, numberOne, numberTwo, typingSwap, results;
 
 - (void)viewDidLoad
 {
+    typingSwap = NO;
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
 }
@@ -43,44 +44,70 @@
         case 8:
         case 9:
         {
+            if (typingSwap == NO) {
+                calcDisplay.text = @"";
+            }
+            typingSwap = YES;
             NSString *castInt = [NSString stringWithFormat:@"%d", button.tag];
             calcDisplay.text = [calcDisplay.text stringByAppendingString:castInt];
         }
             break;
         
         case ADD:
-        {
-            operatorDisplay.text = @"+";
-            operatorDisplay.tag = ADD;
-            if (numberOne == nil){
-                numberOne = calcDisplay.text;
-                calcDisplay.text = @"";
-            } else if (numberTwo == nil){
-                numberTwo = calcDisplay.text;
-                [self getResults:numberOne with:numberTwo];
-            } else if (numberTwo != nil){
-                [self getResults:numberOne with:numberTwo];
-                numberTwo = nil;
-            }
-        }
         case SUBTRACT:
         case MULTIPLY:
         case DIVIDE:
         {
-            
+            if (calcDisplay.text != @"") {
+                
+                typingSwap = NO;
+                if (button.tag == ADD){
+                    operatorDisplay.text = @"+";
+                    operatorDisplay.tag = ADD;
+                } else if (button.tag == SUBTRACT){
+                    operatorDisplay.text = @"-";
+                    operatorDisplay.tag = SUBTRACT;
+                } else if (button.tag == MULTIPLY){
+                    operatorDisplay.text = @"*";
+                    operatorDisplay.tag = MULTIPLY;
+                } else if (button.tag == DIVIDE){
+                    operatorDisplay.text = @"/";
+                    operatorDisplay.tag = DIVIDE;
+                }
+                
+                if (numberOne == nil){
+                    numberOne = calcDisplay.text;
+                } else if (numberTwo == nil){
+                    numberTwo = calcDisplay.text;
+                    [self getResults:numberOne with:numberTwo];
+                    numberTwo = nil;
+                } else if (numberTwo != nil){
+                    numberTwo = nil;
+                }
+            }
         }
             break;
         
         case EQUAL:
         {
-            numberTwo = calcDisplay.text;
-            [self getResults:numberOne with:numberTwo];
+            if (calcDisplay.text != @"") {
+                typingSwap = NO;
+                
+                if (numberOne == nil){
+                    numberOne = calcDisplay.text;
+                } else if (numberTwo == nil){
+                    numberTwo = calcDisplay.text;
+                    [self getResults:numberOne with:numberTwo];
+                } else if (numberTwo != nil){
+                    [self getResults:numberOne with:numberTwo];
+                }
+            }
         }
             break;
         case CLEAR:
         {
-            numberOne = @"";
-            numberTwo = @"";
+            numberOne = nil;
+            numberTwo = nil;
             calcDisplay.text = @"";
             operatorDisplay.text = @"";
         }
@@ -117,28 +144,28 @@
     switch (operatorDisplay.tag) {
         case ADD:
         {
-            int added = castNumberOne + castNumberTwo;
-            calcDisplay.text = [[NSNumber numberWithInt:added]stringValue];
-            numberOne = calcDisplay.text;
+            results = castNumberOne + castNumberTwo;
         }
             break;
         case SUBTRACT:
         {
-            
+            results = castNumberOne - castNumberTwo;
         }
             break;
         case MULTIPLY:
         {
-            
+            results = castNumberOne * castNumberTwo;
         }
             break;
         case DIVIDE:
         {
-            
+            results = castNumberOne / castNumberTwo;
         }
             break;
         default:
             break;
     }
+    calcDisplay.text = [[NSNumber numberWithInt:results]stringValue];
+    numberOne = calcDisplay.text;
 }
 @end
