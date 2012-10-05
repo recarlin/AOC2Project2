@@ -46,4 +46,6 @@ typedef enum
 
 -(void)getResults:(NSString*)first with:(NSString*)second;
 
+-(void)operatorSwap:(int)op;
+
 @end

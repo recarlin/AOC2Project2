@@ -70,31 +70,27 @@
             case DIVIDE:
             {
                 if (calcDisplay.text != @"") {
-                    
-                    typingSwap = NO;
-                    if (button.tag == ADD){
-                        operatorDisplay.text = @"+";
-                        operatorDisplay.tag = ADD;
-                    } else if (button.tag == SUBTRACT){
-                        operatorDisplay.text = @"-";
-                        operatorDisplay.tag = SUBTRACT;
-                    } else if (button.tag == MULTIPLY){
-                        operatorDisplay.text = @"*";
-                        operatorDisplay.tag = MULTIPLY;
-                    } else if (button.tag == DIVIDE){
-                        operatorDisplay.text = @"/";
-                        operatorDisplay.tag = DIVIDE;
-                    }
-                    
                     if (numberOne == nil){
                         numberOne = calcDisplay.text;
+                        [self operatorSwap:button.tag];
                     } else if (numberTwo == nil){
-                        numberTwo = calcDisplay.text;
-                        [self getResults:numberOne with:numberTwo];
-                        numberTwo = nil;
+                        if (typingSwap == NO){
+                            [self operatorSwap:button.tag];
+                        } else if (typingSwap == YES){
+                            numberTwo = calcDisplay.text;
+                            [self getResults:numberOne with:numberTwo];
+                            [self operatorSwap:button.tag];
+                        }
                     } else if (numberTwo != nil){
-                        numberTwo = nil;
+                        if (typingSwap == NO){
+                            [self operatorSwap:button.tag];
+                        } else if (typingSwap == YES){
+                            numberTwo = calcDisplay.text;
+                            [self getResults:numberOne with:numberTwo];
+                            [self operatorSwap:button.tag];
+                        }
                     }
+                    typingSwap = NO;
                 }
             }
                 break;
@@ -103,16 +99,24 @@
             case EQUAL:
             {
                 if (calcDisplay.text != @"") {
-                    typingSwap = NO;
-                    
                     if (numberOne == nil){
                         numberOne = calcDisplay.text;
                     } else if (numberTwo == nil){
-                        numberTwo = calcDisplay.text;
-                        [self getResults:numberOne with:numberTwo];
+                        if (typingSwap == NO){
+                            [self operatorSwap:button.tag];
+                        } else if (typingSwap == YES){
+                            numberTwo = calcDisplay.text;
+                            [self getResults:numberOne with:numberTwo];
+                        }
                     } else if (numberTwo != nil){
-                        [self getResults:numberOne with:numberTwo];
+                        if (typingSwap == NO){
+                            [self getResults:numberOne with:numberTwo];
+                        } else if (typingSwap == YES){
+                            numberTwo = calcDisplay.text;
+                            [self getResults:numberOne with:numberTwo];
+                        }
                     }
+                    typingSwap = NO;
                 }
             }
                 break;
@@ -190,5 +194,22 @@
     }
     calcDisplay.text = [[NSNumber numberWithInt:results]stringValue];
     numberOne = calcDisplay.text;
+}
+
+-(void)operatorSwap:(int)op
+{
+    if (op == ADD){
+        operatorDisplay.text = @"+";
+        operatorDisplay.tag = ADD;
+    } else if (op == SUBTRACT){
+        operatorDisplay.text = @"-";
+        operatorDisplay.tag = SUBTRACT;
+    } else if (op == MULTIPLY){
+        operatorDisplay.text = @"*";
+        operatorDisplay.tag = MULTIPLY;
+    } else if (op == DIVIDE){
+        operatorDisplay.text = @"/";
+        operatorDisplay.tag = DIVIDE;
+    }
 }
 @end
